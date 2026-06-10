@@ -16,7 +16,7 @@ export default function Library() {
     );
   }, [q, cat]);
 
-  const goToDetail = (game: Game) => router.push(`/biblioteca/${game.id}`);
+  const goToDetail = (game: Game) => router.push(`/game/${game.id}`);
 
   return (
     <div className="fade-in">
