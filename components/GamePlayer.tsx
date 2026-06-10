@@ -65,7 +65,7 @@ export default function GamePlayer({ id }: { id: string }) {
           <button className="btn magenta" onClick={endGame}>
             FIN
           </button>
-          <button className="btn ghost" onClick={() => router.push(`/biblioteca/${game.id}`)}>
+          <button className="btn ghost" onClick={() => router.push(`/game/${game.id}`)}>
             SALIR
           </button>
         </div>
@@ -125,7 +125,7 @@ export default function GamePlayer({ id }: { id: string }) {
               <button className="btn" onClick={restart}>
                 JUGAR DE NUEVO
               </button>
-              <Link href="/" className="btn magenta">
+              <Link href="/game" className="btn magenta">
                 VOLVER AL VAULT
               </Link>
             </div>
