@@ -1,3 +1,13 @@
 {
-  "enabledMcpjsonServers": ["playwright"]
+  "enabledMcpjsonServers": ["playwright"],
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          { "type": "command", "command": "node .claude/hooks/lint-format.mjs" }
+        ]
+      }
+    ]
+  }
 }
