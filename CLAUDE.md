@@ -28,6 +28,10 @@ There is no test runner configured.
 
 ⚠️ Next.js 16 differs from the version in your training data. Before using any App Router API (routing conventions, data fetching, config options, etc.), check `node_modules/next/dist/docs/01-app/` for the current behavior — see `AGENTS.md`.
 
+## Skills
+
+Usa siempre /frontend-design para diseñar la interfaz de usuario.
+
 ## Spec-driven workflow
 
 This repo follows a spec-driven process using two custom skills installed from `Klerith/fernando-skills` (tracked in `skills-lock.json`):
