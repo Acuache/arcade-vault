@@ -1,6 +1,6 @@
 # SPEC 04 — Clientes de Supabase (browser y server)
 
-> **Status:** Aprobado · **Depends on:** Ninguno · **Date:** 2026-06-14
+> **Status:** Implementado · **Depends on:** Ninguno · **Date:** 2026-06-14
 > **Objective:** Instalar `@supabase/supabase-js` y `@supabase/ssr`, y crear los clientes de Supabase para navegador (`lib/supabase/client.ts`) y servidor (`lib/supabase/server.ts`) usando las variables de entorno ya configuradas, sin agregar todavía lógica de autenticación, proxy de sesión ni tablas.
 
 ## Scope
@@ -82,11 +82,11 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 
 ## Acceptance criteria
 
-- [ ] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
-- [ ] `@supabase/supabase-js` y `@supabase/ssr` aparecen como dependencias en `package.json` (y `package-lock.json` actualizado).
-- [ ] `lib/supabase/client.ts` existe y exporta `createClient()`, que devuelve un `SupabaseClient` creado con `createBrowserClient`.
-- [ ] `lib/supabase/server.ts` existe y exporta una función `createClient()` async que devuelve un `SupabaseClient` creado con `createServerClient`, usando `cookies()` de `next/headers`.
-- [ ] Ningún componente o página existente importa estos archivos todavía; la app se ve y funciona exactamente igual que antes.
+- [x] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
+- [x] `@supabase/supabase-js` y `@supabase/ssr` aparecen como dependencias en `package.json` (y `package-lock.json` actualizado).
+- [x] `lib/supabase/client.ts` existe y exporta `createClient()`, que devuelve un `SupabaseClient` creado con `createBrowserClient`.
+- [x] `lib/supabase/server.ts` existe y exporta una función `createClient()` async que devuelve un `SupabaseClient` creado con `createServerClient`, usando `cookies()` de `next/headers`.
+- [x] Ningún componente o página existente importa estos archivos todavía; la app se ve y funciona exactamente igual que antes.
 
 ## Decisions
 

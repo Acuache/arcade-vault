@@ -103,16 +103,16 @@ La lógica del juego (clases `Bullet`, `Asteroid`, `Ship`, `Particle`, `PowerUp`
 
 ## Acceptance criteria
 
-- [ ] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
-- [ ] `/game/rocas/jugar` muestra el canvas 800×600 con la nave y los asteroides en movimiento.
-- [ ] El HUD de la plataforma (Puntuación, Vidas, Nivel) refleja los valores reales del juego en tiempo real.
-- [ ] El botón PAUSA/REANUDAR detiene y reanuda el game loop del canvas.
-- [ ] Al morir todas las vidas, el modal "FIN DEL JUEGO" aparece automáticamente con la puntuación final real.
-- [ ] El botón FIN de la plataforma muestra el modal con la puntuación en curso; el juego queda congelado bajo el modal.
-- [ ] JUGAR DE NUEVO reinicia el canvas y el HUD con `score=0`, `lives=3`, `level=1`.
-- [ ] VOLVER AL VAULT navega a `/game/rocas`.
-- [ ] Para todos los demás juegos (`id ≠ "rocas"`), el bloque `.game-arena` placeholder sigue apareciendo igual que antes.
-- [ ] No hay memory leaks: navegar fuera de `/game/rocas/jugar` cancela el `requestAnimationFrame` y elimina los listeners de teclado.
+- [x] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
+- [x] `/game/rocas/jugar` muestra el canvas 800×600 con la nave y los asteroides en movimiento.
+- [x] El HUD de la plataforma (Puntuación, Vidas, Nivel) refleja los valores reales del juego en tiempo real.
+- [x] El botón PAUSA/REANUDAR detiene y reanuda el game loop del canvas.
+- [x] Al morir todas las vidas, el modal "FIN DEL JUEGO" aparece automáticamente con la puntuación final real.
+- [x] El botón FIN de la plataforma muestra el modal con la puntuación en curso; el juego queda congelado bajo el modal.
+- [x] JUGAR DE NUEVO reinicia el canvas y el HUD con `score=0`, `lives=3`, `level=1`.
+- [x] VOLVER AL VAULT navega a `/game/rocas`.
+- [x] Para todos los demás juegos (`id ≠ "rocas"`), el bloque `.game-arena` placeholder sigue apareciendo igual que antes.
+- [x] No hay memory leaks: navegar fuera de `/game/rocas/jugar` cancela el `requestAnimationFrame` y elimina los listeners de teclado.
 
 ## Decisions
 
