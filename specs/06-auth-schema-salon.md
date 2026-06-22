@@ -135,19 +135,19 @@ export type ScoreRow = {
 
 ## Acceptance criteria
 
-- [ ] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
-- [ ] `npm run build` completa sin errores.
-- [ ] La tabla `games` en Supabase tiene exactamente 8 filas con los datos correctos.
-- [ ] La tabla `scores` existe con RLS activo (lectura pública, inserción abierta).
-- [ ] `lib/data.ts` no existe en el repositorio.
-- [ ] `lib/types.ts` existe y exporta `Game`, `GameCategory`, `GameColor`, `ScoreRow`.
-- [ ] Ningún archivo del proyecto importa desde `lib/data.ts`.
-- [ ] Navegar a `/auth` muestra formulario de signup/login y botón de invitado.
-- [ ] Signup con correo/contraseña crea un usuario en Supabase Auth Dashboard.
-- [ ] El botón "Invitado" guarda el alias en `localStorage('av_alias')` y redirige a `/biblioteca`.
-- [ ] `/biblioteca` carga los 8 juegos desde Supabase (sin datos hardcodeados).
-- [ ] Al terminar una partida de Rocas y pulsar "Guardar puntuación", aparece una nueva fila en la tabla `scores` de Supabase con el `game_id`, `alias` y `score` correctos.
-- [ ] `/salon` muestra el leaderboard con los scores reales de Supabase, ordenados de mayor a menor.
+- [x] `npm run dev` arranca sin errores y `npm run lint` pasa sin errores ni warnings nuevos.
+- [x] `npm run build` completa sin errores.
+- [x] La tabla `games` en Supabase tiene exactamente 8 filas con los datos correctos.
+- [x] La tabla `scores` existe con RLS activo (lectura pública, inserción abierta).
+- [x] `lib/data.ts` no existe en el repositorio.
+- [x] `lib/types.ts` existe y exporta `Game`, `GameCategory`, `GameColor`, `ScoreRow`.
+- [x] Ningún archivo del proyecto importa desde `lib/data.ts`.
+- [x] Navegar a `/auth` muestra formulario de signup/login y botón de invitado.
+- [x] Signup con correo/contraseña crea un usuario en Supabase Auth Dashboard.
+- [x] El botón "Invitado" guarda el alias en `localStorage('av_alias')` y redirige a `/biblioteca`.
+- [x] `/biblioteca` carga los 8 juegos desde Supabase (sin datos hardcodeados).
+- [x] Al terminar una partida de Rocas y pulsar "Guardar puntuación", aparece una nueva fila en la tabla `scores` de Supabase con el `game_id`, `alias` y `score` correctos.
+- [x] `/salon` muestra el leaderboard con los scores reales de Supabase, ordenados de mayor a menor.
 
 ## Decisions
 
