@@ -3,27 +3,47 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { GAMES } from '@/lib/data'
-import { useSession } from '@/lib/session'
+import type { Game } from '@/lib/types'
+import { useAuth } from '@/lib/useAuth'
+import { createClient } from '@/lib/supabase/client'
 import AsteroidsGame from './AsteroidsGame'
 
-export default function GamePlayer({ id }: { id: string }) {
+export default function GamePlayer({ id, game }: { id: string; game: Game }) {
   const router = useRouter()
-  const { user } = useSession()
-  const game = GAMES.find((g) => g.id === id)
+  const { user, alias } = useAuth()
+
+  // Alias para guardar: email del usuario autenticado o alias de invitado.
+  const playerAlias = user?.email ?? alias
 
   const [score, setScore] = useState(0)
   const [lives, setLives] = useState(3)
   const [paused, setPaused] = useState(false)
   const [over, setOver] = useState(false)
-  const [name, setName] = useState(user ? user.name : 'INVITADO')
   const [saved, setSaved] = useState(false)
+  const [saving, setSaving] = useState(false)
   const [level, setLevel] = useState(1)
   const [gameKey, setGameKey] = useState(0)
 
-  if (!game) return null
-
   const endGame = () => setOver(true)
+
+  const saveScore = async () => {
+    // Sin alias (ni autenticado ni invitado) → mandar a /auth.
+    if (!playerAlias) {
+      router.push('/auth')
+      return
+    }
+    setSaving(true)
+    const supabase = createClient()
+    const { error } = await supabase.from('scores').insert({
+      game_id: id,
+      user_id: user?.id ?? null,
+      alias: playerAlias,
+      score,
+    })
+    setSaving(false)
+    if (!error) setSaved(true)
+  }
+
   const restart = () => {
     setGameKey((k) => k + 1)
     setScore(0)
@@ -41,7 +61,7 @@ export default function GamePlayer({ id }: { id: string }) {
           <div className="hud-stat">
             <div className="l">Jugador</div>
             <div className="v" style={{ color: 'var(--ink)' }}>
-              {name}
+              {playerAlias ?? 'INVITADO'}
             </div>
           </div>
           <div className="hud-stat">
@@ -135,15 +155,15 @@ export default function GamePlayer({ id }: { id: string }) {
             <div className="final">{score.toLocaleString('es-ES')}</div>
             {!saved ? (
               <div className="input-row">
-                <input
-                  value={name}
-                  onChange={(e) =>
-                    setName(e.target.value.toUpperCase().slice(0, 10))
-                  }
-                  placeholder="TUS INICIALES"
-                />
-                <button className="btn yellow" onClick={() => setSaved(true)}>
-                  GUARDAR PUNTUACIÓN
+                <div className="v" style={{ flex: 1, color: 'var(--ink)' }}>
+                  {playerAlias ?? 'INVITADO'}
+                </div>
+                <button
+                  className="btn yellow"
+                  onClick={saveScore}
+                  disabled={saving}
+                >
+                  {saving ? 'GUARDANDO…' : 'GUARDAR PUNTUACIÓN'}
                 </button>
               </div>
             ) : (

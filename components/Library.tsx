@@ -1,22 +1,32 @@
-"use client";
+'use client'
 
-import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
-import { GAMES, CATS, type Game } from "@/lib/data";
-import GameCard from "@/components/GameCard";
+import { useMemo, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import type { Game, GameCategory } from '@/lib/types'
+import GameCard from '@/components/GameCard'
 
-export default function Library() {
-  const router = useRouter();
-  const [q, setQ] = useState("");
-  const [cat, setCat] = useState<(typeof CATS)[number]>("TODOS");
+const CATS: Array<'TODOS' | GameCategory> = [
+  'TODOS',
+  'ARCADE',
+  'PUZZLE',
+  'SHOOTER',
+  'VERSUS',
+]
+
+export default function Library({ games }: { games: Game[] }) {
+  const router = useRouter()
+  const [q, setQ] = useState('')
+  const [cat, setCat] = useState<(typeof CATS)[number]>('TODOS')
 
   const filtered = useMemo(() => {
-    return GAMES.filter(
-      (g) => (cat === "TODOS" || g.cat === cat) && g.title.toLowerCase().includes(q.toLowerCase())
-    );
-  }, [q, cat]);
+    return games.filter(
+      (g) =>
+        (cat === 'TODOS' || g.cat === cat) &&
+        g.title.toLowerCase().includes(q.toLowerCase())
+    )
+  }, [games, q, cat])
 
-  const goToDetail = (game: Game) => router.push(`/game/${game.id}`);
+  const goToDetail = (game: Game) => router.push(`/game/${game.id}`)
 
   return (
     <div className="fade-in">
@@ -40,7 +50,7 @@ export default function Library() {
           {CATS.map((c) => (
             <button
               key={c}
-              className={"chip" + (cat === c ? " active" : "")}
+              className={'chip' + (cat === c ? ' active' : '')}
               onClick={() => setCat(c)}
             >
               {c}
@@ -54,8 +64,22 @@ export default function Library() {
           <GameCard key={g.id} game={g} onSelect={goToDetail} />
         ))}
         {filtered.length === 0 && (
-          <div style={{ gridColumn: "1 / -1", textAlign: "center", padding: 80, color: "var(--ink-faint)" }}>
-            <div className="pixel" style={{ fontSize: 14, color: "var(--magenta)", marginBottom: 12 }}>
+          <div
+            style={{
+              gridColumn: '1 / -1',
+              textAlign: 'center',
+              padding: 80,
+              color: 'var(--ink-faint)',
+            }}
+          >
+            <div
+              className="pixel"
+              style={{
+                fontSize: 14,
+                color: 'var(--magenta)',
+                marginBottom: 12,
+              }}
+            >
               NO HAY RESULTADOS
             </div>
             <div>Intenta otra búsqueda o categoría.</div>
@@ -63,5 +87,5 @@ export default function Library() {
         )}
       </div>
     </div>
-  );
+  )
 }

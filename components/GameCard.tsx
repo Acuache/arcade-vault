@@ -1,31 +1,31 @@
-"use client";
+'use client'
 
-import { useRef, type MouseEvent } from "react";
-import type { Game } from "@/lib/data";
+import { useRef, type MouseEvent } from 'react'
+import type { Game } from '@/lib/types'
 
 export default function GameCard({
   game,
   onSelect,
 }: {
-  game: Game;
-  onSelect: (game: Game) => void;
+  game: Game
+  onSelect: (game: Game) => void
 }) {
-  const tiltRef = useRef<HTMLDivElement>(null);
+  const tiltRef = useRef<HTMLDivElement>(null)
 
   const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    const el = tiltRef.current;
-    if (!el) return;
-    const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
-    el.style.transform = `translateY(-6px) rotateX(${-py * 6}deg) rotateY(${px * 8}deg)`;
-  };
+    const el = tiltRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const px = (e.clientX - r.left) / r.width - 0.5
+    const py = (e.clientY - r.top) / r.height - 0.5
+    el.style.transform = `translateY(-6px) rotateX(${-py * 6}deg) rotateY(${px * 8}deg)`
+  }
 
   const onLeave = () => {
-    const el = tiltRef.current;
-    if (!el) return;
-    el.style.transform = "";
-  };
+    const el = tiltRef.current
+    if (!el) return
+    el.style.transform = ''
+  }
 
   return (
     <div
@@ -36,7 +36,7 @@ export default function GameCard({
       onClick={() => onSelect(game)}
     >
       <div className="cover">
-        <div className={"cover-bg " + game.cover}></div>
+        <div className={'cover-bg ' + game.cover}></div>
         <div className="label">{game.cat}</div>
       </div>
       <div className="meta">
@@ -45,13 +45,20 @@ export default function GameCard({
         <div className="row">
           <div className="score-badge">
             <span>MEJOR PUNTUACIÓN</span>
-            <b>{game.best.toLocaleString("es-ES")}</b>
+            <b>{game.best.toLocaleString('es-ES')}</b>
           </div>
           <button
-            className={"btn " + (game.color === "magenta" ? "magenta" : game.color === "yellow" ? "yellow" : "")}
+            className={
+              'btn ' +
+              (game.color === 'magenta'
+                ? 'magenta'
+                : game.color === 'yellow'
+                  ? 'yellow'
+                  : '')
+            }
             onClick={(e) => {
-              e.stopPropagation();
-              onSelect(game);
+              e.stopPropagation()
+              onSelect(game)
             }}
           >
             JUGAR
@@ -59,5 +66,5 @@ export default function GameCard({
         </div>
       </div>
     </div>
-  );
+  )
 }

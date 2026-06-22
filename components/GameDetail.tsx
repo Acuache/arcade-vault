@@ -1,20 +1,18 @@
-"use client";
+import Link from 'next/link'
+import type { Game, ScoreRow } from '@/lib/types'
 
-import { useMemo } from "react";
-import Link from "next/link";
-import { GAMES, seededScores } from "@/lib/data";
-
-export default function GameDetail({ id }: { id: string }) {
-  const game = useMemo(() => GAMES.find((g) => g.id === id), [id]);
-  const scores = useMemo(() => seededScores(id.length * 17 + 3, 10), [id]);
-
-  if (!game) return null;
-
+export default function GameDetail({
+  game,
+  scores,
+}: {
+  game: Game
+  scores: ScoreRow[]
+}) {
   return (
     <div className="av-detail fade-in">
       <div>
         <div className="detail-cover">
-          <div className={"cover-bg " + game.cover}></div>
+          <div className={'cover-bg ' + game.cover}></div>
         </div>
         <div style={{ marginTop: 20 }} className="detail-info">
           <div className="detail-tags">
@@ -34,16 +32,22 @@ export default function GameDetail({ id }: { id: string }) {
               <div className="l">Mejor global</div>
               <div
                 className="v"
-                style={{ color: "var(--magenta)", textShadow: "0 0 6px rgba(255,0,110,0.5)" }}
+                style={{
+                  color: 'var(--magenta)',
+                  textShadow: '0 0 6px rgba(255,0,110,0.5)',
+                }}
               >
-                {game.best.toLocaleString("es-ES")}
+                {game.best.toLocaleString('es-ES')}
               </div>
             </div>
             <div>
               <div className="l">Dificultad</div>
               <div
                 className="v"
-                style={{ color: "var(--yellow)", textShadow: "0 0 6px rgba(245,255,0,0.5)" }}
+                style={{
+                  color: 'var(--yellow)',
+                  textShadow: '0 0 6px rgba(245,255,0,0.5)',
+                }}
               >
                 ★ ★ ★ ☆ ☆
               </div>
@@ -63,23 +67,44 @@ export default function GameDetail({ id }: { id: string }) {
       <aside>
         <div className="leaderboard">
           <h3>MEJORES PUNTUACIONES</h3>
+          {scores.length === 0 && (
+            <div
+              style={{
+                padding: 24,
+                textAlign: 'center',
+                color: 'var(--ink-faint)',
+                fontSize: 12,
+              }}
+            >
+              Aún no hay puntuaciones. ¡Sé el primero!
+            </div>
+          )}
           {scores.map((r, i) => (
             <div
-              key={r.name}
-              className={"lb-row" + (i === 0 ? " top1" : i === 1 ? " top2" : i === 2 ? " top3" : "")}
+              key={i}
+              className={
+                'lb-row' +
+                (i === 0 ? ' top1' : i === 1 ? ' top2' : i === 2 ? ' top3' : '')
+              }
             >
-              <div className="rk">#{String(r.rank).padStart(2, "0")}</div>
+              <div className="rk">#{String(r.rank).padStart(2, '0')}</div>
               <div className="pl">
-                {r.name}
-                <div style={{ fontSize: 10, color: "var(--ink-faint)", letterSpacing: "0.1em" }}>
-                  {r.date}
+                {r.alias}
+                <div
+                  style={{
+                    fontSize: 10,
+                    color: 'var(--ink-faint)',
+                    letterSpacing: '0.1em',
+                  }}
+                >
+                  {new Date(r.created_at).toLocaleDateString('es-ES')}
                 </div>
               </div>
-              <div className="sc">{r.score.toLocaleString("es-ES")}</div>
+              <div className="sc">{r.score.toLocaleString('es-ES')}</div>
             </div>
           ))}
         </div>
       </aside>
     </div>
-  );
+  )
 }

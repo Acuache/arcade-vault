@@ -1,5 +1,7 @@
-import HallOfFame from "@/components/HallOfFame";
+import HallOfFame from '@/components/HallOfFame'
+import { getGames } from '@/lib/games'
 
-export default function Page() {
-  return <HallOfFame />;
+export default async function Page() {
+  const games = await getGames()
+  return <HallOfFame games={games} />
 }
