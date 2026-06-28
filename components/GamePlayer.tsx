@@ -7,6 +7,7 @@ import type { Game } from '@/lib/types'
 import { useAuth } from '@/lib/useAuth'
 import { createClient } from '@/lib/supabase/client'
 import AsteroidsGame from './AsteroidsGame'
+import TetrisGame from './TetrisGame'
 
 export default function GamePlayer({ id, game }: { id: string; game: Game }) {
   const router = useRouter()
@@ -97,6 +98,18 @@ export default function GamePlayer({ id, game }: { id: string; game: Game }) {
         <div className="crt-screen">
           {id === 'rocas' ? (
             <AsteroidsGame
+              key={gameKey}
+              paused={paused || over}
+              onScore={setScore}
+              onLives={setLives}
+              onLevel={setLevel}
+              onGameOver={(s) => {
+                setScore(s)
+                setOver(true)
+              }}
+            />
+          ) : id === 'caida' ? (
+            <TetrisGame
               key={gameKey}
               paused={paused || over}
               onScore={setScore}
